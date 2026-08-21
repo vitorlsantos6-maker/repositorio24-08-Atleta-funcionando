@@ -1,0 +1,73 @@
+<div class="card-inscricao">
+  <h2 class="titulo">Inscrição na Corrida</h2>
+
+  <form (ngSubmit)="finalizarInscricao()">
+    <!-- Linha 1: Atleta e CPF -->
+    <div class="linha-dupla">
+      <div class="campo">
+        <label>Atleta Cadastrado</label>
+        <select [(ngModel)]="inscricao.atleta" name="atleta">
+          <option value="">Selecione o atleta (ou digite o CPF)</option>
+          <option value="1">Vitor Silva - 000.000.000-00</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Ou Buscar por CPF</label>
+        <input type="text" placeholder="000.000.000-00" [(ngModel)]="inscricao.cpf" name="cpf">
+      </div>
+    </div>
+
+    <!-- Linha 2: Corrida e Distância -->
+    <div class="linha-dupla">
+      <div class="campo">
+        <label>Corrida Escolhida</label>
+        <select [(ngModel)]="inscricao.corrida" name="corrida">
+          <option value="Circuito das Estações - Etapa Verão (15/11/2026)">Circuito das Estações - Etapa Verão (15/11/2026)</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Distância da Prova</label>
+        <div class="opcoes-radio">
+          <label><input type="radio" name="distancia" value="5km" [(ngModel)]="inscricao.distancia"> 5km</label>
+          <label><input type="radio" name="distancia" value="10km" [(ngModel)]="inscricao.distancia"> 10km</label>
+          <label><input type="radio" name="distancia" value="25km" [(ngModel)]="inscricao.distancia"> 25km</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha 3: Camiseta e Categoria -->
+    <div class="linha-dupla">
+      <div class="campo">
+        <label>Tamanho da Camiseta (Kit)</label>
+        <select [(ngModel)]="inscricao.camiseta" name="camiseta">
+          <option value="">Selecione</option>
+          <option value="P">P</option>
+          <option value="M">M</option>
+          <option value="G">G</option>
+          <option value="GG">GG</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Categoria / Faixa Etária</label>
+        <input type="text" [value]="inscricao.categoria" disabled class="input-desabilitado">
+      </div>
+    </div>
+
+    <!-- Banner de Valor -->
+    <div class="caixa-valor">
+      <span>Valor da Inscrição:</span>
+      <span class="preco">R$ {{ inscricao.valor }}</span>
+    </div>
+
+    <!-- Checkbox Termos -->
+    <div class="campo-termos">
+      <label>
+        <input type="checkbox" [(ngModel)]="inscricao.aceitouTermos" name="aceitouTermos" required>
+        Li e aceito os termos do regulamento da prova e declaração de saúde.
+      </label>
+    </div>
+
+    <!-- Botão Principal -->
+    <button type="submit" class="btn-pagamento">Finalizar e Ir para Pagamento</button>
+  </form>
+</div>
