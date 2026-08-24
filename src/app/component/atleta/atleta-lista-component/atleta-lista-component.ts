@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AtletaService, Atleta } from '../../../service/atleta-service'; // <--- Com hífen: atleta-service
+import { AtletaService, Atleta } from '../../../service/atleta-service';
 
 @Component({
   selector: 'app-atleta-lista-component',
@@ -15,6 +15,19 @@ export class AtletaListaComponent {
 
   constructor(private atletaService: AtletaService, private router: Router) {
     this.listaAtletas = this.atletaService.getAtletas();
+  }
+
+  calcularIdade(dataNascimento: string): number {
+    if (!dataNascimento) return 0;
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade--;
+    }
+    return idade;
   }
 
   buscarPessoa(atleta: Atleta) {

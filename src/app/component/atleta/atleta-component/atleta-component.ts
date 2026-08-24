@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AtletaService } from '../../../service/atleta-service'; // <--- Com hífen: atleta-service
+import { AtletaService, Atleta } from '../../../service/atleta-service';
 
 @Component({
   selector: 'app-atleta-component',
@@ -15,6 +15,7 @@ export class AtletaComponent {
   nome: string = '';
   cpf: string = '';
   sexo: string = '';
+  dataNascimento: string = ''; // Campo adicionado
   cep: string = '';
   rua_logradouro: string = '';
   bairro: string = '';
@@ -29,18 +30,20 @@ export class AtletaComponent {
   ) {}
 
   enviaDadosAtleta() {
-    this.atletaService.adicionarAtleta({
+    const novoAtleta: Atleta = {
+      id: Date.now(),
       nome: this.nome,
       cpf: this.cpf,
       sexo: this.sexo,
+      dataNascimento: this.dataNascimento, // Propriedade adicionada
       cep: this.cep,
       rua_logradouro: this.rua_logradouro,
       bairro: this.bairro,
       cidade: this.cidade,
       uf: this.uf
-    });
+    };
 
-    alert('Atleta cadastrado com sucesso!');
+    this.atletaService.adicionarAtleta(novoAtleta);
     this.router.navigate(['/listaatleta']);
   }
 }
