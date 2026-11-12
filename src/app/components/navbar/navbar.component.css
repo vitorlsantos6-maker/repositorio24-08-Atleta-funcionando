@@ -1,0 +1,129 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-auth-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-auth-highlight {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Modal Overlay */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.modal-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.modal-tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal-tabs button.active {
+  border-bottom: 3px solid #007bff;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.form-group input, .form-group select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}

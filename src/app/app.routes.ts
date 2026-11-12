@@ -1,52 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './component/home-component/home-component';
-import { AtletaComponent } from './component/atleta/atleta-component/atleta-component';
-import { AtletaListaComponent } from './component/atleta/atleta-lista-component/atleta-lista-component';
-import { CorridaComponent } from './component/corrida/corrida-component/corrida-component';
-import { CorridaListaComponent } from './component/corrida/corrida-lista-component/corrida-lista-component';
-import { InscricaoCorridaComponent } from './inscricao-corrida/inscricao-corrida';
-
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: "/home",
-        pathMatch: 'full'
-    },
-    {
-        path: "home",
-        component: HomeComponent
-    },
-    {
-        path: "cadastroatleta",
-        component: AtletaComponent
-    },
-    {
-        path: "cadastroatleta/:id",
-        component: AtletaComponent
-    },
-    {
-        path: "listaatleta",
-        component: AtletaListaComponent
-    },
-    {
-        path: "cadastrocorrida",
-        component: CorridaComponent
-    },
-    {
-        path: "alteracorrida/:id",
-        component: CorridaComponent
-    },
-    {
-        path: "listacorrida",
-        component: CorridaListaComponent
-    },
-    {
-        path: "inscricaocorrida",
-        component: InscricaoCorridaComponent
-    },
-    {
-        path: "inscricaocorrida/:id",
-        component: InscricaoCorridaComponent
-    }
+  { path: '', redirectTo: 'catalogo', pathMatch: 'full' },
+  { 
+    path: 'catalogo', 
+    loadComponent: () => import('./pages/catalogo/catalogo.component').then(m => m.CatalogoComponent) 
+  },
+  { 
+    path: 'carrinho', 
+    loadComponent: () => import('./pages/carrinho/carrinho.component').then(m => m.CarrinhoComponent) 
+  }
 ];

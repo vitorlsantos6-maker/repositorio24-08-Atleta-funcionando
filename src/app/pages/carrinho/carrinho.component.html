@@ -1,0 +1,118 @@
+<div class="carrinho-container">
+  <h2>Seu Carrinho de Compras</h2>
+
+  <!-- Mensagem de Sucesso -->
+  <div *ngIf="exibirSucesso" class="alert-sucesso">
+    ✅ Compra efetuada com sucesso! Obrigado pela preferência.
+  </div>
+
+  <!-- Estado Vazio -->
+  <div *ngIf="itensCarrinho.length === 0 && !exibirSucesso" class="carrinho-vazio">
+    <p>O seu carrinho está vazio.</p>
+    <a routerLink="/catalogo" class="btn-voltar">Ir para o Catálogo</a>
+  </div>
+
+  <!-- Layout Principal do Carrinho -->
+  <div *ngIf="itensCarrinho.length > 0 && !exibirSucesso" class="carrinho-grid">
+    
+    <!-- Lado Esquerdo: Lista de Produtos -->
+    <div class="itens-secao">
+      <table class="tabela-carrinho">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Subtotal</th>
+            <th>Remover</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of itensCarrinho">
+            <td class="col-produto">
+              <img [src]="item.imagem" [alt]="item.nome" class="img-thumb" />
+              <span>{{ item.nome }}</span>
+            </td>
+            <td>{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>
+              <div class="controlador-qtd">
+                <button type="button" (click)="alterarQuantidade(item, -1)">-</button>
+                <span>{{ item.quantidade }}</span>
+                <button type="button" (click)="alterarQuantidade(item, 1)">+</button>
+              </div>
+            </td>
+            <td class="subtotal">
+              {{ (item.preco * item.quantidade) | currency:'BRL':'symbol':'1.2-2' }}
+            </td>
+            <td>
+              <button class="btn-remover" (click)="removerItem(item)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn-limpar" (click)="limparCarrinho()">Esvaziar Carrinho</button>
+    </div>
+
+    <!-- Lado Direito: Opções de Pagamento -->
+    <div class="pagamento-secao">
+      <h3>Resumo e Pagamento</h3>
+      
+      <div class="resumo-total">
+        <span>Total a Pagar:</span>
+        <strong>{{ valorTotal | currency:'BRL':'symbol':'1.2-2' }}</strong>
+      </div>
+
+      <h4>Forma de Pagamento</h4>
+      <div class="metodos-pagamento">
+        <label [class.active]="metodoPagamento === 'pix'">
+          <input type="radio" name="metodo" value="pix" [(ngModel)]="metodoPagamento" /> PIX (5% OFF)
+        </label>
+        <label [class.active]="metodoPagamento === 'cartao'">
+          <input type="radio" name="metodo" value="cartao" [(ngModel)]="metodoPagamento" /> Cartão de Crédito
+        </label>
+        <label [class.active]="metodoPagamento === 'boleto'">
+          <input type="radio" name="metodo" value="boleto" [(ngModel)]="metodoPagamento" /> Boleto Bancário
+        </label>
+      </div>
+
+      <!-- Formulário PIX -->
+      <div *ngIf="metodoPagamento === 'pix'" class="detalhes-pagamento">
+        <p>Ao finalizar, um QR Code PIX será gerado para o pagamento imediato com 5% de desconto.</p>
+        <p class="preco-pix">Valor no PIX: <strong>{{ (valorTotal * 0.95) | currency:'BRL':'symbol':'1.2-2' }}</strong></p>
+      </div>
+
+      <!-- Formulário Cartão de Crédito -->
+      <div *ngIf="metodoPagamento === 'cartao'" class="detalhes-pagamento form-cartao">
+        <div class="form-group">
+          <label>Nome no Cartão</label>
+          <input type="text" [(ngModel)]="dadosCartao.nomeTitular" placeholder="Nome como no cartão" />
+        </div>
+        <div class="form-group">
+          <label>Número do Cartão</label>
+          <input type="text" [(ngModel)]="dadosCartao.numero" placeholder="0000 0000 0000 0000" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Validade</label>
+            <input type="text" [(ngModel)]="dadosCartao.validade" placeholder="MM/AA" />
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" [(ngModel)]="dadosCartao.cvv" placeholder="123" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário Boleto -->
+      <div *ngIf="metodoPagamento === 'boleto'" class="detalhes-pagamento">
+        <p>O boleto bancário será gerado após a confirmação. O prazo de compensação é de até 3 dias úteis.</p>
+      </div>
+
+      <button class="btn-pagar" (click)="finalizarPagamento()">
+        Confirmar e Pagar
+      </button>
+    </div>
+
+  </div>
+</div>

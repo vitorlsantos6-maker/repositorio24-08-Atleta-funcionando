@@ -1,0 +1,49 @@
+<div class="catalogo-container">
+  <h2>Catálogo de Produtos</h2>
+
+  <!-- Categorias -->
+  <div class="categorias-bar">
+    <button 
+      *ngFor="let cat of categorias" 
+      [class.active]="categoriaSelecionada === cat"
+      (click)="filtrarPorCategoria(cat)"
+    >
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="carregando" class="loading">
+    Carregando produtos...
+  </div>
+
+  <!-- Grid de Produtos -->
+  <div *ngIf="!carregando" class="grid-produtos">
+    <div *ngFor="let item of produtosFiltrados" class="card-produto">
+      <img [src]="item.imagem" [alt]="item.nome" />
+      <div class="card-body">
+        <span class="categoria-tag">{{ item.categoria }}</span>
+        <h3>{{ item.nome }}</h3>
+        <p class="descricao">{{ item.descricao }}</p>
+        <p class="preco">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+        
+        <!-- Controle de Quantidade -->
+        <div class="qtd-control">
+          <label>Qtd:</label>
+          <button type="button" (click)="alterarQuantidade(item, -1)">-</button>
+          <input type="number" [(ngModel)]="item.quantidadeSelecionada" min="1" readonly />
+          <button type="button" (click)="alterarQuantidade(item, 1)">+</button>
+        </div>
+
+        <button class="btn-comprar" (click)="adicionarAoCarrinho(item)">
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sem Produtos Encontrados -->
+  <div *ngIf="!carregando && produtosFiltrados.length === 0" class="sem-produtos">
+    <p>Nenhum produto encontrado.</p>
+  </div>
+</div>
